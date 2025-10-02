@@ -11,3 +11,11 @@ ll.append("turtle");
 
 ll.toString();
 
+ll.insertAt("Hello", 3);
+ll.toString();
+
+ll.insertAt("Okay Garmin", 0);
+ll.toString();
+
+ll.pop();
+ll.toString();

@@ -120,4 +120,73 @@ export class LinkedList {
         }
         console.log("null");
     }
+
+    insertAt(value, index) {
+        if( index < 0 ) throw new Error('Index cannot be below 0');
+
+        if( index === 0 ) {
+            const newNode = new Node(value, this.head);
+            this.head = newNode;
+            if(!this.tail) this.tail = newNode;
+            return;
+        }
+
+
+        let prev = this.head;
+        let count = 0;
+        while( prev && count < index - 1 ) {
+            prev = prev.next;
+            count++;
+        }
+
+        if( !prev ) throw new Error('Index out of bounds');
+
+        const inserted = new Node(value, prev.next);
+        prev.next = inserted;
+
+        if( !inserted.next ) this.tail = inserted;
+
+        return inserted;
+    }
+
+    removeAt(index) {
+        if( !this.head ) throw new Error("List is empty!");
+        if( index < 0 ) throw new Error("Index should not be less than 0");
+        if( !Number.isInteger(index)) throw new Error("Index must be an integer");
+
+        if( index === 0 ) {
+            const removed = this.head;
+            if(this.head === this.tail) {
+                this.head = this.tail = null;
+            } else {
+                this.head = this.head.next;
+            }
+            
+            removed.next = null;
+            return removed;
+        }
+
+
+        let prev = this.head;
+
+        let i = 0;
+        while( prev  && i !== index - 1 ) {
+            prev = prev.next;
+            i++;
+        }
+
+        if (!prev || !prev.next) {
+            throw new Error("Index is out of bounds");
+        }
+        
+        let removed = prev.next;
+        prev.next = removed.next;
+
+        if ( removed === this.tail ) this.tail = prev;
+
+        removed.next = null;
+        return removed.val;
+    }
+    
+
 }
